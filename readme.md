@@ -14,6 +14,28 @@ SPI stands for Service Provider Interface, which is a mechanism in Java that all
 
 - **Service Usage**: The core framework or application can then use the loaded service implementations as needed, without being tightly coupled to any specific implementation.
 
+### Real World Example:
+
+**Java Logging API (java.util.logging)**
+
+The Java Logging API is a part of the Java standard library and provides a framework for logging in Java applications. It uses the Service Provider Interface to allow different logging providers to be plugged in and used by the API.
+
+The `java.util.logging.LogManager` class uses the `ServiceLoader` to discover and load the available `LoggingProvider` implementations. The `LoggingProvider` interface defines the contract for logging providers, and third-party logging frameworks, such as Log4j or Logback, can provide their own implementations of this interface.
+
+**Here's how it works:**
+
+- **Service Interface**: The `java.util.logging.LoggingProvider` interface is the service interface that defines the contract for logging providers.
+
+- **Service Implementation**: Third-party logging frameworks, such as Log4j or Logback, provide their own implementations of the `LoggingProvider` interface.
+
+- **Service Configuration File**: Each implementation of the `LoggingProvider` interface is listed in a configuration file named `META-INF/services/java.util.logging.LoggingProvider`. This file contains one fully qualified class name per line, representing the implementations of the `LoggingProvider` interface.
+
+- For example, the Log4j logging framework includes a file `META-INF/services/java.util.logging.LoggingProvider` with the following content: `org.apache.log4j.jboss.LoggingProviderImpl`
+
+- **Service Discovery**: The `LogManager` class uses the `ServiceLoader` to discover and load the available `LoggingProvider` implementations listed in the configuration files.
+
+- **Service Usage**: The Java Logging API uses the loaded `LoggingProvider` implementations to perform logging operations.
+
 ### Hands on SPI
 The Tech lead of an e-commerce store needs to integrate different parcel service providers like BlueDart, DHLF, and IndiaPost. Instead of using API calls, he wants to leverage the Service Provider Interface (SPI). He plans to define an interface, and the implementation details will be provided by the respective parcel service companies. This approach will allow for loose coupling and extensibility in integrating new parcel service providers without modifying the core application.
 
